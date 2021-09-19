@@ -12,16 +12,16 @@ import petclinc.springframework.sbsapetclinic.repositories.PetTypeRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class OwnerSDJpaServiceTest {
+class OwnerJpaServiceTest {
 
     public static final String LAST_NAME = "daikhi";
     @Mock
@@ -79,11 +79,13 @@ class OwnerSDJpaServiceTest {
 
     @Test
     void findByIdNotFound() {
-       /* when(ownerRepository.findById(anyLong())).thenReturn(Optional.empty());
+        when(ownerRepository.findById(anyLong())).thenReturn(Optional.empty());
 
-        Owner owner = ownerRepository.findById(1L).get();
+        Optional<Owner> owner = ownerRepository.findById(1L);
 
-        assertNull(owner);*/
+        assertThrows(NoSuchElementException.class,()->{
+            owner.get();
+        });
     }
 
 
